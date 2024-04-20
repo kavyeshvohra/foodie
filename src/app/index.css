@@ -13,7 +13,7 @@ a{
     text-decoration: none;
     color: inherit;
 }
-.app
+.main-content
 {
     width: 80%;
     margin: auto;
@@ -40,7 +40,7 @@ a{
 }
 .banner-contents h1
 {
-    font-size:max(4.5vw,22px);
+    font-size:max(4.2vw,22px);
     font-weight: 500;
     color: #fff;
 }
@@ -65,5 +65,25 @@ a{
     }
     100%{
         opacity: 1;
+    }
+}
+@media (max-width:1050px) {
+    .banner{
+        height: 38vw;
+    }
+    .banner-contents{
+        max-width: 45%;
+    }
+}
+@media (max-width:750px) {
+    .banner-contents{
+        max-width: 60%;
+        margin-bottom: 5%;
+    }
+    .banner-contents p{
+        display: none;
+    }
+    .banner-contents button{
+        padding: 2vw 4vw;
     }
 }

@@ -18,11 +18,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="app">
+      <body>
+        <div className="main-content">
         <Header/>
         <StoreContextProvider>
           {children}
         </StoreContextProvider>
+        </div>
       <Footer/>
       </body>
     </html>

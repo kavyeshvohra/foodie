@@ -5,7 +5,7 @@ import { Rating } from '@mui/material'
 import { useContext } from 'react'
 import { StoreContext } from '@/context/StoreContext'
 export const FoodItem = ({id,name,price,description,ratings,image}) =>{
-    const {cartItems, addToCart, removeFromCart}     = useContext(StoreContext);
+    const {cartItems, addToCart, removeFromCart} = useContext(StoreContext);
     return(
         <>
             <div className="food-item">
