@@ -1,7 +1,7 @@
 import Header from "@/components/Header/Header"
 import './index.css'
 import { Metadata } from "next"
-import StoreContextProvider from './context/StoreContext.js '
+import StoreContextProvider from '../context/StoreContext'
 export const metadata: Metadata = {
   title: {
     default: "Next.js",
@@ -19,7 +19,9 @@ export default function RootLayout({
     <html lang="en">
       <body className="app">
         <Header/>
-        {children}
+        <StoreContextProvider>
+          {children}
+        </StoreContextProvider>
       </body>
     </html>
   )

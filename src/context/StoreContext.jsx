@@ -1,3 +1,4 @@
+"use client"
 import { createContext } from "react";
 import {food_list} from "../assets"
 export const StoreContext = createContext(null);
