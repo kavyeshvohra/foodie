@@ -4,6 +4,8 @@ import Image from 'next/image'
 import {assets} from '../../assets'
 import { useState } from 'react'
 import Link from 'next/link'
+import SearchIcon from '@mui/icons-material/Search'
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 export default function Header()
 {
     const [menu, setMenu] = useState("Home")
@@ -17,9 +19,9 @@ export default function Header()
                     <li onClick={()=>setMenu("Contact-us")} className={menu==="Contact-us"?"active":""}><Link href='/contact'>Contact Us</Link></li>
                 </ul>
                 <div className="navbar-right">
-                    <Image src={assets.search_icon} alt=""/>
+                    <SearchIcon fontSize='large' sx={{color: '#49557e'}}/>
                     <div className="navbar-search-icon">
-                        <Image src={assets.basket_icon} alt=""/>
+                        <ShoppingBagIcon fontSize='large' sx={{color: '#49557e'}}/>
                         <div className="dot"></div>
                     </div>
                     <button>Sign In</button>

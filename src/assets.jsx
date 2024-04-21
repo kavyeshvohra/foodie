@@ -92,7 +92,7 @@ export const menu_list = [
         menu_image: menu_2
     },
     {
-        menu_name: "Deserts",
+        menu_name: "Desserts",
         menu_image: menu_3
     },
     {
@@ -122,7 +122,7 @@ export const food_list = [
         name: "Greek salad",
         image: food_1,
         price: 700,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Refreshing mix of lettuce, tomatoes, olives & feta cheese, drizzled with olive oil & oregano.",
         category: "Salad",
         ratings: 4
     },
@@ -131,7 +131,7 @@ export const food_list = [
         name: "Veg salad",
         image: food_2,
         price: 750,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Delightful blend of fresh veggies with light vinaigrette dressing.",
         category: "Salad",
         ratings: 3.5
     },
@@ -140,7 +140,7 @@ export const food_list = [
         name: "Clover Salad",
         image: food_3,
         price: 490,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Exquisite mix of greens, sprouts, avocado & sunflower seeds, served with lemon-garlic dressing.",
         category: "Salad",
         ratings: 2.5
     },
@@ -149,7 +149,7 @@ export const food_list = [
         name: "Chicken Salad",
         image: food_4,
         price: 670,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Grilled chicken on crisp lettuce with tomatoes, cucumbers & cheese, topped with creamy ranch.",
         category: "Salad",
         ratings: 3.5
     },
@@ -158,7 +158,7 @@ export const food_list = [
         name: "Lasagna Rolls",
         image: food_5,
         price: 349,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Lasagna noodles rolled with ricotta, spinach & herbs, baked in marinara & mozzarella.",
         category: "Rolls",
         ratings: 4
     },
@@ -167,7 +167,7 @@ export const food_list = [
         name: "Peri Peri Rolls",
         image: food_6,
         price: 249,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Spicy peri peri chicken in flour tortillas with lettuce, tomatoes & peri peri sauce.",
         category: "Rolls",
         ratings: 3
     },
@@ -176,7 +176,7 @@ export const food_list = [
         name: "Chicken Rolls",
         image: food_7,
         price: 559,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Hearty slices of grilled chicken in tortillas with lettuce, tomatoes, cheese & mayo.",
         category: "Rolls",
         ratings: 4.5
     },
@@ -185,7 +185,7 @@ export const food_list = [
         name: "Veg Rolls",
         image: food_8,
         price: 449,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Sautéed bell peppers, onions, mushrooms & zucchini in tortillas with salsa.",
         category: "Rolls",
         ratings: 3.5
     },
@@ -194,8 +194,8 @@ export const food_list = [
         name: "Ripple Ice Cream",
         image: food_9,
         price: 140,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Deserts",
+        description: "Smooth vanilla ice cream swirled with rich chocolate fudge.",
+        category: "Desserts",
         ratings: 4
     },
     {
@@ -203,8 +203,8 @@ export const food_list = [
         name: "Fruit Ice Cream",
         image: food_10,
         price: 220,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Deserts",
+        description: "Velvety ice cream blended with ripe seasonal fruits.",
+        category: "Desserts",
         ratings: 3.5
     },
     {
@@ -212,8 +212,8 @@ export const food_list = [
         name: "Jar Ice Cream",
         image: food_11,
         price: 300,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Deserts",
+        description: "Layers of vanilla ice cream, cookie crumbles & caramel sauce in a jar.",
+        category: "Desserts",
         ratings: 4.5
     },
     {
@@ -221,8 +221,8 @@ export const food_list = [
         name: "Vanilla Ice Cream",
         image: food_12,
         price: 110,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Deserts",
+        description: "Classic vanilla ice cream made with Madagascar vanilla beans.",
+        category: "Desserts",
         ratings: 3
     },
     {
@@ -230,7 +230,7 @@ export const food_list = [
         name: "Chicken Sandwich",
         image: food_13,
         price: 200,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Juicy grilled chicken breast between slices of bread with lettuce, tomatoes & mayo.",
         category: "Sandwich",
         ratings: 4
     },
@@ -239,87 +239,97 @@ export const food_list = [
         name: "Vegan Sandwich",
         image: food_14,
         price: 190,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Marinated tofu, avocado, veggies & hummus in whole grain bread slices.",
         category: "Sandwich",
         ratings: 4.5
-    }, {
+    },
+    {
         _id: "15",
         name: "Grilled Sandwich",
         image: food_15,
         price: 160,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Melted cheese, ham & caramelized onions between toasted bread slices.",
         category: "Sandwich",
         ratings: 4
-    }, {
+    },
+    {
         _id: "16",
         name: "Bread Sandwich",
         image: food_16,
         price: 150,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Peanut butter & strawberry jam between freshly baked bread slices.",
         category: "Sandwich",
         ratings: 5
-    }, {
+    },
+    {
         _id: "17",
         name: "Cup Cake",
         image: food_17,
         price: 90,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Moist vanilla cupcake with creamy frosting & colorful sprinkles.",
         category: "Cake",
         ratings: 3
-    }, {
+    },
+    {
         _id: "18",
         name: "Vegan Cake",
         image: food_18,
         price: 1000,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Decadent vegan cake with dairy-free icing & fresh fruit garnish.",
         category: "Cake",
         ratings: 3.5
-    }, {
+    },
+    {
         _id: "19",
         name: "Butterscotch Cake",
         image: food_19,
         price: 800,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Layers of sponge cake, caramel sauce & toffee bits with caramel frosting.",
         category: "Cake",
         ratings: 4
-    }, {
+    },
+    {
         _id: "20",
         name: "Sliced Cake",
         image: food_20,
         price: 340,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Rich chocolate cake slice with chocolate ganache & shavings.",
         category: "Cake",
         ratings: 3
-    }, {
+    },
+    {
         _id: "21",
-        name: "Garlic Mushroom ",
+        name: "Garlic Mushroom",
         image: food_21,
         price: 330,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Sautéed mushrooms with garlic & herbs, garnished with fresh parsley.",
         category: "Pure Veg",
         ratings: 4.5
-    }, {
+    },
+    {
         _id: "22",
         name: "Fried Cauliflower",
         image: food_22,
         price: 220,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Crispy cauliflower florets seasoned & fried to perfection.",
         category: "Pure Veg",
         ratings: 3.5
-    }, {
+    },
+    {
         _id: "23",
         name: "Mix Veg Pulao",
         image: food_23,
         price: 900,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Fragrant rice dish with mixed vegetables & aromatic spices.",
         category: "Pure Veg",
         ratings: 5
-    }, {
+    },
+    {
         _id: "24",
         name: "Rice Zucchini",
         image: food_24,
         price: 1200,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Sautéed zucchini slices with jasmine rice, garlic & herbs.",
         category: "Pure Veg",
         ratings: 4
     },
@@ -328,7 +338,7 @@ export const food_list = [
         name: "Cheese Pasta",
         image: food_25,
         price: 740,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Pasta in creamy cheese sauce with cheddar, parmesan & mozzarella.",
         category: "Pasta",
         ratings: 5
     },
@@ -337,56 +347,62 @@ export const food_list = [
         name: "Tomato Pasta",
         image: food_26,
         price: 350,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Pasta in tangy tomato sauce with garlic, basil & olive oil.",
         category: "Pasta",
         ratings: 5
-    }, {
+    },
+    {
         _id: "27",
         name: "Creamy Pasta",
         image: food_27,
         price: 260,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Pasta in velvety white sauce with cream, butter & parmesan cheese.",
         category: "Pasta",
         ratings: 4
-    }, {
+    },
+    {
         _id: "28",
         name: "Chicken Pasta",
         image: food_28,
         price: 500,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Pasta in rich tomato cream sauce with grilled chicken & garlic.",
         category: "Pasta",
         ratings: 4.5
-    }, {
+    },
+    {
         _id: "29",
         name: "Buttter Noodles",
         image: food_29,
         price: 320,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Noodles in savory buttery sauce with garlic & herbs.",
         category: "Noodles",
         ratings: 4
-    }, {
+    },
+    {
         _id: "30",
         name: "Veg Noodles",
         image: food_30,
         price: 400,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Noodles stir-fried with colorful veggies in soy sauce & spices.",
         category: "Noodles",
         ratings: 4
-    }, {
+    },
+    {
         _id: "31",
         name: "Somen Noodles",
         image: food_31,
         price: 200,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Delicate somen noodles in refreshing soy sauce dressing with cucumber & green onions.",
         category: "Noodles",
         ratings: 3
-    }, {
+    },
+    {
         _id: "32",
         name: "Cooked Noodles",
         image: food_32,
         price: 145,
-        description: "Food provides essential nutrients for overall health and well-being",
+        description: "Warm noodles tossed in fragrant sesame oil, garlic & soy sauce.",
         category: "Noodles",
         ratings: 3.5
     }
-]
+];
