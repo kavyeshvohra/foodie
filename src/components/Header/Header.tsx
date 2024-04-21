@@ -6,9 +6,15 @@ import { useState } from 'react'
 import Link from 'next/link'
 import SearchIcon from '@mui/icons-material/Search'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import LoginSignup from '../LoginSignup/LoginSignup'
 export default function Header()
 {
     const [menu, setMenu] = useState("Home")
+    const [isDrawerOpen,setIsDrawerOpen] = useState(false);
+
+    const toggleDrawer = () => {
+        setIsDrawerOpen(!isDrawerOpen);
+    }
     return(
         <>
             <div className="navbar">
@@ -24,7 +30,8 @@ export default function Header()
                         <ShoppingBagIcon fontSize='large' sx={{color: '#49557e'}}/>
                         <div className="dot"></div>
                     </div>
-                    <button>Sign In</button>
+                    <LoginSignup isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer}/>
+                    <button onClick={toggleDrawer}>Sign In</button>
                 </div>
             </div>
         </>

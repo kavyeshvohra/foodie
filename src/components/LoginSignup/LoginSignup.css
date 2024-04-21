@@ -1,0 +1,17 @@
+.login-signup-wrapper{
+    width: 25vw;
+    padding: 2vw;
+}
+.login-signup-header{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.login-signup-header h3{
+    font-size: 2rem;
+    font-weight: 400;
+}
+.login-signup-header p{
+    font-size: 0.95em;
+    font-weight: 300;
+}
