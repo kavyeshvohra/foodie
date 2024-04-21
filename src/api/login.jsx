@@ -15,7 +15,7 @@ const LoginVerifier = () =>{
 
     useEffect(()=>{
         window.RecaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container',{
-            'size':'normal',
+            'size':'invisible',
             'callback':(response) =>{
 
             },
@@ -35,7 +35,25 @@ const LoginVerifier = () =>{
     const handleSendOtp = async () =>{
         try{
             const formattedPhoneNumber = `+${phoneNumber.replace(/\D/g, '')}`;
-            const confirmation = await signInWithPhoneNumber
+            const confirmation = await signInWithPhoneNumber(auth,formattedPhoneNumber, window.RecaptchaVerifier);
+            setConfirmationResult(confirmation);
+            setOtpSent(true);
+            setPhoneNumber('');
+            alert('OTP sent!');
+        }
+        catch(error)
+        {
+            console.error(error);
+        }
+    }
+    const handleOTPSubmit = async()=>{
+        try{
+            await confirmationResult.confirm(otp);
+            setOtp('');
+            router.push('dashboard');
+        }
+        catch(error){
+            console.error(error);
         }
     }
 }
