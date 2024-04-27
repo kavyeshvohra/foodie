@@ -1,11 +1,16 @@
 import { StoreContext } from "@/context/StoreContext";
 import Image from "next/image";
-import { useContext } from "react";
-import './cart.css'
+import { useContext, useEffect, useState } from "react";
+import './Cart.css'
 const Cart = () =>{
     
-    const {cartItems, food_list, removeFromCart} = useContext(StoreContext);
-
+    const {cartItems, food_list, removeFromCart, returnTotalAmount} = useContext(StoreContext);
+    const [deliveryCharge, setDeliveryCharge] = useState(0);
+    
+    useEffect(()=>{
+        setDeliveryCharge(Object.keys(cartItems).length > 0 ? 200: 0);
+        console.log(cartItems);
+    },[cartItems])
     return(
         <>
             <div className="cart">
@@ -26,9 +31,9 @@ const Cart = () =>{
                                 <div key={item._id} className="cart-items-title cart-items-item">
                                     <Image src={item.image} alt="" />
                                     <p>{item.name}</p>
-                                    <p>₹{item.price}</p>
+                                    <p>₹ {item.price}</p>
                                     <p>{cartItems[item._id]}</p>
-                                    <p>{item.price*cartItems[item._id]}</p>
+                                    <p>₹ {item.price*cartItems[item._id]}</p>
                                     <p onClick={()=>removeFromCart(item._id)} className="cross">x</p>
                                 </div>
                                 <hr/>
@@ -42,7 +47,31 @@ const Cart = () =>{
                         <div>
                             <div className="cart-total-details">
                                 <p>Subtotal</p>
-                                <p>{0}</p>
+                                <p>₹ {returnTotalAmount()}</p>
+                            </div>
+                            <hr />
+                            <div className="cart-total-details">
+                                <p>Delivery Fee</p>
+                                <p>
+                                    {
+                                    deliveryCharge > 0 && cartItems > 0 ? <>₹{deliveryCharge}</>: <>₹0</> 
+                                    }
+                                </p>
+                            </div>
+                            <hr />
+                            <div className="cart-total-details">
+                                <b>Total</b>
+                                <b>₹ {returnTotalAmount()+deliveryCharge}</b>
+                            </div>
+                        </div>
+                            <button>Proceed To Checkout</button>
+                    </div>
+                    <div className="cart-promo-code">
+                        <div>
+                            <p>If you have a promo code, Enter it here</p>
+                            <div className="cart-promo-code-input">
+                                <input type="text" placeholder="Promo Code"/>
+                            <button>Apply!</button>
                             </div>
                         </div>
                     </div>
