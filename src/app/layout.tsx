@@ -16,6 +16,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+    <StoreContextProvider>
     <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico"/>
@@ -25,12 +26,11 @@ export default function RootLayout({
       <body>
         <div className="main-content">
         <Header/>
-        <StoreContextProvider>
           {children}
-        </StoreContextProvider>
         </div>
       <Footer/>
       </body>
     </html>
+    </StoreContextProvider>
   )
 }

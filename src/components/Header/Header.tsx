@@ -18,7 +18,7 @@ export default function Header()
     return(
         <>
             <div className="navbar">
-                <Image src={assets.logo} alt="" className='logo'/>
+                <Link href="/"><Image src={assets.logo} alt="" className='logo'/></Link>
                 <ul className="navbar-menu">
                     <li onClick={()=>setMenu("Home")} className={menu==="Home"?"active":""}><Link href='/'>Home</Link></li>
                     <li onClick={()=>setMenu("Menu")} className={menu==="Menu"?"active":""}><Link href=''>Menu</Link></li>
@@ -27,7 +27,7 @@ export default function Header()
                 <div className="navbar-right">
                     <SearchIcon fontSize='large' sx={{color: '#49557e'}}/>
                     <div className="navbar-search-icon">
-                        <ShoppingBagIcon fontSize='large' sx={{color: '#49557e'}}/>
+                        <Link href='/cart'><ShoppingBagIcon fontSize='large' sx={{color: '#49557e'}}/></Link>
                         <div className="dot"></div>
                     </div>
                     <LoginSignup isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer}/>
