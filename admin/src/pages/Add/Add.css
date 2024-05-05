@@ -1,3 +1,4 @@
+
 .add{
     width: 70%;
     margin-left: max(5vw,25px);
@@ -8,9 +9,7 @@
 .add form{
     gap:20px;
 }
-.add-img-upload img{
-    width: 120px;
-}
+
 .add-product-name, .add-product-description{
     width: max(40%,280px);
 }
@@ -32,4 +31,89 @@
     background-color: #000;
     color: #fff;
     cursor: pointer;
+}
+.thumb{
+    display: flex;
+    width: 40%;
+    height: 100%;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+.thumb-inner{
+    position: relative;
+    text-align: 'center';
+    display: flex;
+    flex-direction: column;
+    column-gap: 200px;
+}
+.thumbs-container{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.thumb-inner > img{
+    display: block;
+    width: auto;
+    height: 100px;
+}
+.drop-files-sec{
+    cursor: pointer;
+    background-color: tomato;
+    color: #fff;
+    border: 2px dashed #fff;
+    min-height: 20vh;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    justify-content: center;
+    align-items: center;
+}
+.drop-files-sec span{
+    font-style: italic;
+    font-weight: 200;
+}
+.files-grid{
+    display: grid;
+    max-width: 60%;
+    background-color: #f5f5f5;
+    grid-template-columns: auto auto auto auto;
+    row-gap: 20px;
+}
+.files-grid-item{
+    list-style: none;
+    position: relative;
+    text-align: center;
+}
+.files-grid-item > img{
+    object-fit: contain;
+}
+.dz{
+    width: 40%;
+}
+.remove-file-btn{
+    position: absolute;
+    left:2%;
+    background-color: tomato;
+    border: 1px solid transparent;
+    padding: 7px 9px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.remove-file-btn:hover{
+    background-color: transparent;
+    border:1px solid tomato;
+}
+.remove-file-btn:hover > svg
+{
+    color: #000;
+}
+.remove-file-btn > svg{
+    width: 15px;
+    padding:0;
+    margin:0;
+    color: #fff;
 }

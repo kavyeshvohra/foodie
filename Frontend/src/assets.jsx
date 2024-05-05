@@ -47,8 +47,7 @@ import food_32 from '../public/food_32.png'
 import add_icon_white from '../public/add_icon_white.png'
 import add_icon_green from '../public/add_icon_green.png'
 import remove_icon_red from '../public/remove_icon_red.png'
-import app_store from '../public/app_store.png'
-import play_store from '../public/play_store.png'
+
 import linkedin_icon from '../public/linkedin_icon.png'
 import facebook_icon from '../public/facebook_icon.png'
 import twitter_icon from '../public/twitter_icon.png'
@@ -69,8 +68,6 @@ export const assets = {
     add_icon_green,
     add_icon_white,
     remove_icon_red,
-    app_store,
-    play_store,
     linkedin_icon,
     facebook_icon,
     twitter_icon,
