@@ -24,7 +24,7 @@ const addFood = async (req,res)=>{
             img:imgUrls,
         });
         await food.save();
-        res.json({success:true,message:"Food Added"})
+        res.json({success:true,message:"Food Item Added"})
     }
     catch (error) {
         console.log(error);

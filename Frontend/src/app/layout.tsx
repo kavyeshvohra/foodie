@@ -5,7 +5,7 @@ import StoreContextProvider from '../context/StoreContext'
 import Footer  from "../components/Footer/Footer"
 export const metadata: Metadata = {
   title: {
-    default: "Foodie - Order Food Online",
+    default: "Tomato. - Order Food Online",
     template:"%s | Just For Fun",
   },
 }

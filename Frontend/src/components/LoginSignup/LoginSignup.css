@@ -11,11 +11,30 @@
     font-size: 2rem;
     font-weight: 400;
 }
-.login-signup-header p{
+.input-wrapper{
+    gap:10px;
+}
+.input-wrapper input{
+    width: 3.33rem;
+    height:2rem;
+    flex:1;
+}
+@media (max-width:1024px){
+    .login-signup-wrapper{
+        width: 50vw;
+    }
+}
+.login-signup-header p span{
     font-size: 0.95em;
     font-weight: 300;
 }
-.login-signup-form{
+.login-signup-header p span{
+    font-size: 0.95em;
+    font-weight: 300;
+    cursor: pointer;
+    text-decoration: underline dotted tomato;
+}
+.login-signup-form form{
     display: flex;
     flex-direction: column;
     gap:20px;
@@ -39,8 +58,53 @@ button[type='submit']
     width: 100%;
     background-color: tomato;
     padding-top: 15px;
-    border: none;
+    border: 1px solid transparent;
     cursor: pointer;
     color: #fff;
     padding-bottom: 15px;
+    transition: 0.2s all ease-in-out;
+}
+button[type='submit']:hover
+{
+    background-color: transparent;
+    border: 1px solid tomato;
+    cursor: pointer;
+    color: #000;
+}
+#otp-sent-notify{
+    display: flex;
+    background-color: darkgreen;
+    opacity: 0.8;
+    color: #fff;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 10px 12px;
+    align-items: center;
+    justify-content: center;
+}
+#otp-sent-notify  > svg{
+    width: 20px;
+}
+#error-notify{
+    display: flex;
+    opacity: 0.6;
+    color: red;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 10px 12px;
+    align-items: center;
+    justify-content: center;
+    font-size:0.75rem;
+    font-weight: 700;
+}
+#error-notify  > svg{
+    width: 20px;
+}
+
+#resend-otp{
+    background: none;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+    text-decoration: underline;
 }

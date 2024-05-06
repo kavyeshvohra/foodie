@@ -7,12 +7,10 @@ import { useDropzone } from 'react-dropzone'
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Preview } from 'react-dropzone-uploader';
 
 declare const assets: Assets;
 
-const Add:React.FC = () => {
-  const url="http://localhost:4000"
+const Add:React.FC = ({url}) => {
   const [files, setFiles] = useState<File[] | undefined>([]);
   const {getRootProps, getInputProps} = useDropzone({
     accept:{
