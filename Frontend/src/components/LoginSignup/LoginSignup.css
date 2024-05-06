@@ -71,6 +71,24 @@ button[type='submit']:hover
     cursor: pointer;
     color: #000;
 }
+button[type='button']
+{
+    width: 100%;
+    background-color: tomato;
+    padding-top: 15px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    color: #fff;
+    padding-bottom: 15px;
+    transition: 0.2s all ease-in-out;
+}
+button[type='button']:hover
+{
+    background-color: transparent;
+    border: 1px solid tomato;
+    cursor: pointer;
+    color: #000;
+}
 #otp-sent-notify{
     display: flex;
     background-color: darkgreen;

@@ -72,10 +72,6 @@ const LoginSignup = ({isDrawerOpen, toggleDrawer}) =>{
                 if(response.data.success)
                 {
                     try{
-                        if(phoneNumber==='')
-                        {
-                            return 
-                        }
                         const confirmation = await signInWithPhoneNumber(auth,fP, window.RecaptchaVerifier);
                         setConfirmationResult(confirmation);
                         console.log(confirmation)
@@ -110,7 +106,14 @@ const LoginSignup = ({isDrawerOpen, toggleDrawer}) =>{
                 }
                 catch(error)
                 {
-                    console.error(error);
+                    switch (error.code) {
+                        case 'auth/too-many-requests':
+                          setErrorMessage('Too many attempts! Try again later.');
+                          break;
+                        default:
+                          console.error('Unknown error:', error);
+                          break;
+                    }
                 }
                 if(userVerification)
                 {
@@ -128,6 +131,9 @@ const LoginSignup = ({isDrawerOpen, toggleDrawer}) =>{
             {
                 setErrorMessage(checkUser.data.message);
             }
+        }
+        else{
+            console.log("Internal Error!");
         }
     }
     // const handleSendOtp = async () =>{
@@ -156,8 +162,41 @@ const LoginSignup = ({isDrawerOpen, toggleDrawer}) =>{
             console.error(error);
         }
     }
-    const handleOTPSubmit1 = async()=>{
-        alert(1);
+    const handleOTPSubmit1 =async()=>{
+        console.log('here');
+        try{
+            const res = await confirmationResult.confirm(otp);
+            if(res)
+            {
+                console.log('hello!')
+                if(currentState==='login')
+                {
+                    alert(1);
+                    toggleDrawer(false);
+                    router.push('dashboard');    
+                }
+                else{
+                    alert(2);
+                    setUserVerification(true);
+                }
+            }
+        }
+        catch(err){
+            switch (err.code) {
+                case 'auth/invalid-verification-code':
+                  setErrorMessage('Invalid OTP. Please enter the correct code.');
+                  break;
+                case 'auth/invalid-verification-id':
+                  setErrorMessage('Invalid verification ID. Please try requesting a new OTP.');
+                  break;
+                case 'auth/verification-failed':
+                  setErrorMessage('OTP verification failed. Please check your network connection and try again.');
+                  break;
+                default:
+                  console.error('Unknown error:', errorMessage);
+                  break;
+        }
+    }
     }
     function resetAll()
     {
@@ -215,7 +254,7 @@ const LoginSignup = ({isDrawerOpen, toggleDrawer}) =>{
                         }
                         {
                             otpSent===true?
-                            <button type='button' onClick={()=>handleOTPSubmit1}>Verify OTP</button>:
+                            <button type='button' onClick={handleOTPSubmit1}>Verify OTP</button>:
                             <button type='submit'>{currentState==='Register'?'Create Account':'Login'}</button>
                         }
                         </form>
