@@ -5,9 +5,18 @@ import { useContext, useEffect, useState } from "react";
 import './Cart.css'
 const Cart = () =>{
     
-    const {cartItems, food_list, removeFromCart, returnTotalAmount, returnDeliveryAmt} = useContext(StoreContext);
+    const {cartItems, food_list, removeFromCart, token,returnTotalAmount, returnDeliveryAmt, toggleDrawer} = useContext(StoreContext);
     const router = useRouter();
-    
+    const handleCheckout = () =>{
+        if(!token)
+            toggleDrawer();
+        else if(token)
+            router.push("/place-order")
+    }
+    // useEffect(()=>{
+    //     if(token)
+    //         router.push("/place-order")
+    // },[token])
     return(
         <>
             <div className="cart">
@@ -26,7 +35,7 @@ const Cart = () =>{
                         if(cartItems[item._id] > 0){
                             return <>
                                 <div key={item._id} className="cart-items-title cart-items-item">
-                                    <Image src={item.image} alt="" />
+                                    <Image src={`${process.env.NEXT_PUBLIC_API_URL}`+"/images/"+item.img} width={100} height={0} alt="" />
                                     <p>{item.name}</p>
                                     <p>₹ {item.price}</p>
                                     <p>{cartItems[item._id]}</p>
@@ -59,7 +68,7 @@ const Cart = () =>{
                                 <b>₹ {returnTotalAmount()+ returnDeliveryAmt()}</b>
                             </div>
                         </div>
-                            <button onClick={()=>router.push('/place-order')}>Proceed To Checkout</button>
+                            <button onClick={handleCheckout}>Proceed To Checkout</button>
                     </div>
                     <div className="cart-promo-code">
                         <div>

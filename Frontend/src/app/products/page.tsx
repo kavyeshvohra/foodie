@@ -1,7 +1,14 @@
+"use client"
 import Link from "next/link";
+import { useEffect,useContext } from "react";
+import { StoreContext } from '@/context/StoreContext'
 
 export default function ProductList()
 {
+    const {token} = useContext(StoreContext)
+    useEffect(()=>{
+        console.log(token)
+    })
     return (
     <>
         <Link href='/'>Home</Link>

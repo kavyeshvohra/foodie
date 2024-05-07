@@ -2,21 +2,22 @@
 import Drawer from '@mui/material/Drawer'
 import './LoginSignup.css'
 import { Close, LineAxisOutlined } from '@mui/icons-material'
-import { useState, useEffect } from 'react'
+import { useState, useEffect,useContext } from 'react'
 import OtpInput from 'react-otp-input'
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
 import app from '../../api/_Firebase/clientApp'
 import { useRouter } from "next/navigation"
 import axios from 'axios'
+import { StoreContext } from '@/context/StoreContext'
 
 const LoginSignup = ({isDrawerOpen, toggleDrawer}) =>{
+    const {token, setToken} = useContext(StoreContext);
     const[currentState, setCurrentState] = useState('Login');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
     const [confirmationResult, setConfirmationResult] = useState(null)
-    const [userVerification, setUserVerification] = useState(false);
     const [otpSent, setOtpSent] = useState(false)
     const url = process.env.NEXT_PUBLIC_API_URL
     const auth = getAuth(app);
@@ -24,6 +25,7 @@ const LoginSignup = ({isDrawerOpen, toggleDrawer}) =>{
     let fP = '';
     const[errorMessage,setErrorMessage] = useState('');
     const[infoMessage,setInfoMessage]=useState('');
+    const[isLoading,setIsLoading] = useState(false);
     const handlePhoneNumberChange = (e) =>{
         setPhoneNumber(e.target.value);
     }
@@ -59,6 +61,7 @@ const LoginSignup = ({isDrawerOpen, toggleDrawer}) =>{
         return `+91${formattedNumber}`;
     }
     const handleSubmit = async (e:React.SyntheticEvent) =>{
+        setIsLoading(true);
         setErrorMessage('');
         setInfoMessage('');
         e.preventDefault();
@@ -67,7 +70,7 @@ const LoginSignup = ({isDrawerOpen, toggleDrawer}) =>{
                 if(phoneNumber === '')
                     return
                 fP = formatPhoneNumber(phoneNumber);
-                const response = await axios.post(`${url}/api/user/login`,{data:{phone:fP}});
+                const response = await axios.post(`${url}/api/user/verify`,{data:{phone:fP,formType: e.target.formType.value}});
                 console.log(response);
                 if(response.data.success)
                 {
@@ -80,11 +83,20 @@ const LoginSignup = ({isDrawerOpen, toggleDrawer}) =>{
                     }
                     catch(error)
                     {
-                        console.error(error);
+                        switch (error.code) {
+                            case 'auth/too-many-requests':
+                              setErrorMessage('Too many attempts! Try again later.');
+                              break;
+                            default:
+                              console.error('Unknown error:', error);
+                              break;
+                        }
+                        setIsLoading(false);
                     }
                 }
                 else{
                     setCurrentState('Register')
+                    setIsLoading(false);
                 }
             }
         else if(currentState==='Register'){
@@ -114,70 +126,54 @@ const LoginSignup = ({isDrawerOpen, toggleDrawer}) =>{
                           console.error('Unknown error:', error);
                           break;
                     }
-                }
-                if(userVerification)
-                {
-                    const response = await axios.post(`${url}/api/user/register`,{data:{phone:fP,name:name,email:email}});
-                    if(response.data.success)
-                    {
-                        setInfoMessage('Welcome to Foodie! You will be redirected to your dashboard');
-                        resetAll();
-                    }
-                    else
-                        setErrorMessage('Oops! An error has occurred, Please try again later.');
+                    setIsLoading(false);
                 }
             }
             else
             {
                 setErrorMessage(checkUser.data.message);
+                setIsLoading(false);
             }
         }
         else{
             console.log("Internal Error!");
+            setErrorMessage('Internal Error! Please try again later.');
+            setIsLoading(false);
         }
     }
-    // const handleSendOtp = async () =>{
-        
-    // }
-    const handleOTPSubmit = async()=>{
-        try{
-            console.log('hello!')
-            if(currentState==='login')
-            {
-                alert(1);
-                await confirmationResult.confirm(otp);
-                toggleDrawer(false);
-                router.push('dashboard');    
-            }
-            else if(currentState=='register'){
-                const res = await confirmationResult.confirm(otp)
-                if(res)
-                    setUserVerification(true)
-                else {
-                    setErrorMessage('Invalid OTP. Please try again.');
-                }
-            }
-        }
-        catch(error){
-            console.error(error);
-        }
-    }
-    const handleOTPSubmit1 =async()=>{
+    const handleOTPSubmit =async()=>{
         console.log('here');
         try{
+            setIsLoading(true);
             const res = await confirmationResult.confirm(otp);
             if(res)
             {
-                console.log('hello!')
-                if(currentState==='login')
+                fP=formatPhoneNumber(phoneNumber);
+                if(currentState==='Login')
                 {
-                    alert(1);
+                    const response = await axios.post(`${url}/api/user/login`,{data:{phone:Number(fP)}});
+                    if(response.data.success)
+                    {
+                        setToken(response.data.token);
+                        localStorage.setItem('token',response.data.token);
+                    }
+                    else
+                        setErrorMessage('Oops! An error has occurred, Please try again later.');    
                     toggleDrawer(false);
-                    router.push('dashboard');    
+                    setIsLoading(false);
                 }
                 else{
-                    alert(2);
-                    setUserVerification(true);
+                    const response = await axios.post(`${url}/api/user/register`,{data:{phone:Number(fP),name:name,email:email}});
+                    if(response.data.success)
+                    {
+                        setInfoMessage('Welcome to Foodie! You will be redirected to your dashboard');
+                        setIsLoading(false);
+                        isDrawerOpen(false);
+                        resetAll();
+                    }
+                    else
+                        setErrorMessage('Oops! An error has occurred, Please try again later.');
+                        setIsLoading(false);
                 }
             }
         }
@@ -196,6 +192,7 @@ const LoginSignup = ({isDrawerOpen, toggleDrawer}) =>{
                   console.error('Unknown error:', errorMessage);
                   break;
         }
+        setIsLoading(false);
     }
     }
     function resetAll()
@@ -206,9 +203,9 @@ const LoginSignup = ({isDrawerOpen, toggleDrawer}) =>{
         fP=''
         setName('');
         setEmail('');
-        setUserVerification(false);
         setErrorMessage('');
         setInfoMessage('');
+        setIsLoading(false);
     }
     return(
         <>
@@ -232,20 +229,21 @@ const LoginSignup = ({isDrawerOpen, toggleDrawer}) =>{
                         }
                     </div>
                     <div className="login-signup-form">
-                        <form method='POST' onSubmit={handleSubmit} encType='multipart/form-data'>
+                        <form method='POST' onSubmit={handleSubmit}>
                         {currentState==='Login'?
                         <>
-                            <input type="tel" className='form-fields' placeholder='Phone Number' disabled={otpSent===true?true:false} name="phone" id="phone" value={phoneNumber} onKeyDown={numberKey} maxLength='10' onChange={(e)=>{setPhoneNumber(e.target.value)}} required aria-required/>
+                            <input type="hidden" value="login" name="formType" />
+                            <input type="tel" className='form-fields' placeholder='Phone Number' disabled={isLoading} name="phone" id="phone" value={phoneNumber} onKeyDown={numberKey} maxLength='10' onChange={(e)=>{setPhoneNumber(e.target.value)}} required aria-required/>
                             {otpSent===true?
-                                <OtpInput value={otp} onChange={setOtp} inputType='text' numInputs={6} containerStyle={'input-wrapper'} renderSeparator={<span>-</span>} renderInput={(props) => <input {...props} />}></OtpInput>
+                                <OtpInput value={otp} onChange={setOtp} inputType='text' numInputs={6} containerStyle={'input-wrapper'} renderSeparator={<span>-</span>} renderInput={(props) => <input {...props}/>}></OtpInput>
                                 :null
                             }
                         </>
                         :
                         <>
-                            <input type="tel" className='form-fields' onKeyDown={numberKey} maxLength='10' disabled={otpSent===true?true:false} value={phoneNumber}  onChange={(e)=>{setPhoneNumber(e.target.value)}} required aria-required placeholder='Phone Number' name="phone" id="phone"/>
-                            <input type='text' className='form-fields' value={name} onChange={(e)=>setName(e.target.value)} required placeholder='Full Name' name='name' id='name'/>
-                            <input type='email' className='form-fields' value={email} onChange={(e)=>setEmail(e.target.value)}aria-required placeholder='Email' name='email' id='email'/>
+                            <input type="tel" className='form-fields' onKeyDown={numberKey} maxLength={10} disabled={isLoading} value={phoneNumber}  onChange={(e)=>{setPhoneNumber(e.target.value)}} required aria-required placeholder='Phone Number' name="phone" id="phone"/>
+                            <input type='text' className='form-fields' disabled={isLoading} value={name} onChange={(e)=>setName(e.target.value)} required placeholder='Full Name' name='name' id='name'/>
+                            <input type='email' className='form-fields' disabled={isLoading} value={email} onChange={(e)=>setEmail(e.target.value)}aria-required placeholder='Email' name='email' id='email'/>
                             {otpSent===true?
                                 <OtpInput value={otp} onChange={setOtp} inputType='text' numInputs={6} containerStyle={'input-wrapper'} renderSeparator={<span>-</span>} renderInput={(props) => <input {...props} />}></OtpInput>
                                 :null
@@ -254,24 +252,19 @@ const LoginSignup = ({isDrawerOpen, toggleDrawer}) =>{
                         }
                         {
                             otpSent===true?
-                            <button type='button' onClick={handleOTPSubmit1}>Verify OTP</button>:
-                            <button type='submit'>{currentState==='Register'?'Create Account':'Login'}</button>
+                            <button type='button' onClick={handleOTPSubmit}>Verify OTP</button>:
+                            <button type='submit' disabled={isLoading} >{isLoading && <div className="spinner"></div>}{currentState==='Register'?'Create Account':'Login'}</button>
                         }
                         </form>
                     </div>
-                    {otpSent===true?
-                    <>
-                        <button type='button' id='resend-otp' onClick={()=>handleresendOtp}>Resend OTP</button>
-                        <div id='otp-sent-notify'>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-                            </svg>
-                            {infoMessage}
-                        </div>
-                    </>
-                    :
-                    null
-                    }
+                    {infoMessage!==''?
+                    <div id='info-notify'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                        </svg>
+                        {infoMessage}
+                    </div>
+                    :null}
                     {
                         errorMessage !== ''
                         ?

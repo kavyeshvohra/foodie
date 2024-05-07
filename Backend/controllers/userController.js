@@ -6,30 +6,43 @@ import 'dotenv/config'
 
 //Login User
 const loginUser = async (req,res)=> {
-    const {phone} = req.body.data;
-    const user = await userModel.findOne({phone})
-    console.log(user);
-    if(!user){
-        return res.json({success:false, message:"User not registered!"});
+    try{
+        const {phone} = req.body.data;
+        const user = await userModel.findOne({phone})
+        if(user){
+            return res.json({success:true, token:createToken(user._id)});
+        }
+        return res.json({success:false,message:'User not found!'});
     }
-    return res.json({success:true});
+    catch(err){
+        console.log(err);
+        res.json({success:false,message:'Error! Connection Error!'});
+    }
+
 }
 const createToken = (id) => {
     return jwt.sign({id},process.env.JWT_SECRET)
 }
+
 //Register User
 const checkUser = async(req,res)=>{
     try {
-        const {phone,email} = req.body.data;
-        const userEmail = await userModel.findOne({email});
-        const userPhone = await userModel.findOne({phone});
-        if(userEmail)
+        const {phone,email,formType} = req.body.data;
+        if(email)
         {
-            return res.json({success:false, message: "User already registered with same email!"})
+            const userEmail = await userModel.findOne({email});
+            if(userEmail){
+                    return res.json({success:false, message: "User already registered with same email!"})
+            }
         }
-        else if(userPhone)
+        else if(phone)
         {
+            const userPhone = await userModel.findOne({phone});
+            if(userPhone){
+                if(formType === 'login') 
+                    return res.json({success:true});
                 return res.json({success:false, message:"User already registered with same mobile number!"});
+            }
         }
         return res.json({success:true});
     } catch (error) {

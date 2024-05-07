@@ -12,7 +12,7 @@ export const FoodDisplay = ({category}) =>{
                     {food_list.map((item,index)=>{
                         if(category==="All" || category===item.category)
                             {
-                                return <FoodItem key={index} id={item._id} name={item.name} description={item.description} price={item.price} ratings={item.ratings} image={item.image}/>
+                                return <FoodItem key={index} id={item._id} name={item.name} description={item.description} price={item.price} ratings={item.ratings} img={item.img}/>
                             }
                     })}
                 </div>

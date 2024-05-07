@@ -4,13 +4,13 @@ import { assets } from '@/assets'
 import { Rating } from '@mui/material'
 import { useContext } from 'react'
 import { StoreContext } from '@/context/StoreContext'
-export const FoodItem = ({id,name,price,description,ratings,image}) =>{
+export const FoodItem = ({id,name,price,description,ratings,img}) =>{
     const {cartItems, addToCart, removeFromCart} = useContext(StoreContext);
     return(
         <>
             <div className="food-item">
                 <div className="food-item-img-container">
-                    <Image className='food-item-image' src={image} alt=""/>
+                    <Image className='food-item-image' src={`${process.env.NEXT_PUBLIC_API_URL}`+"/images/"+img} width={100} height={0} alt=""/>
                     {
                         !cartItems[id]?<Image className='add' onClick={()=>addToCart(id)} src={assets.add_icon_white} alt=""/>:
                         <div className="food-item-counter">

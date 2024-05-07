@@ -6,15 +6,20 @@ import { useContext, useState } from 'react'
 import Link from 'next/link'
 import SearchIcon from '@mui/icons-material/Search'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LoginSignup from '../LoginSignup/LoginSignup'
 import { StoreContext } from '@/context/StoreContext'
+import { useRouter } from 'next/navigation'
 export default function Header()
 {
     const [menu, setMenu] = useState("Home")
-    const [isDrawerOpen,setIsDrawerOpen] = useState(false);
-    const {returnTotalAmount} = useContext(StoreContext);
-    const toggleDrawer = () => {
-        setIsDrawerOpen(!isDrawerOpen);
+    const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+    const {returnTotalAmount,token,setToken,toggleDrawer,isDrawerOpen} = useContext(StoreContext);
+    const router = useRouter();
+    const handleLogOut = () => {
+        setToken(null);
+        localStorage.removeItem('token');
+        router.push('/');
     }
     return(
         <>
@@ -31,8 +36,25 @@ export default function Header()
                         <Link href='/cart'><ShoppingBagIcon fontSize='large' sx={{color: '#49557e'}}/></Link>
                         <div className={returnTotalAmount()===0?"":"dot"}></div>
                     </div>
+                    {!token
+                        ?
+                        <button onClick={toggleDrawer}>Sign In</button>
+                        :
+                        <div className="navbar-profile" onMouseEnter={()=>setIsDropdownVisible(true)} onMouseLeave={()=>setIsDropdownVisible(false)}>
+                            <AccountCircleIcon  fontSize='large' sx={{color: '#49557e'}}/>
+                            {isDropdownVisible 
+                            ?
+                            <div className="navbar-profile-dropdown">
+                                <Link href='/profile' className="dropdown-item">Profile</Link>
+                                <Link href='/orders' className="dropdown-item">Orders</Link>
+                                <li className='dropdown-item' onClick={()=>handleLogOut()}>Logout</li>
+                            </div>
+                            :
+                            null
+                            }
+                        </div>
+                    }
                     <LoginSignup isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer}/>
-                    <button onClick={toggleDrawer}>Sign In</button>
                 </div>
             </div>
         </>
