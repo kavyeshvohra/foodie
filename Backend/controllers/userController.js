@@ -39,12 +39,12 @@ const checkUser = async(req,res)=>{
         {
             const userPhone = await userModel.findOne({phone});
             if(userPhone){
-                if(formType === 'login') 
+                if(formType === 'login')
                     return res.json({success:true});
                 return res.json({success:false, message:"User already registered with same mobile number!"});
             }
+            return res.json({sucess:false});
         }
-        return res.json({success:true});
     } catch (error) {
         res.json({success:false, message:'Error Occured!'})
     }

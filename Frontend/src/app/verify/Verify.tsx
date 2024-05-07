@@ -33,7 +33,7 @@ const Verify = () => {
             <div className="verify__container">
                 <h1 className="verify__title">{success ? "Success" : "Failed"}</h1>
                 <p className="verify__message">
-                    {success ? `Your order has been placed! Your order number is ${orderId}` : "Your order has failed. Please try again."}
+                    {success ? `Your order has been placed! Your order number is!` : `Your order has failed. Please try again. ${<br/>} Redirecting you back to homepage!`}
                 </p>
             </div>
         </div>

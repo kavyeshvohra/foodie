@@ -46,3 +46,15 @@
         font-size: 10px;
     }
 }
+.orders-info-message{
+    display: flex;
+    min-height: 50vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:20px;
+}
+.orders-info-message .action-img{
+    width: 200px;
+    height: auto;
+}

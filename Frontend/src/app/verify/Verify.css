@@ -11,6 +11,13 @@
     border-radius: 50%;
     animation: rotate 1s infinite;
 }
+.verify__container{
+    text-align: center;
+    row-gap: 20px;
+}
+.verify__container > h1{
+    margin-bottom: 20px;
+}
 @keyframes rotate{
     100%{
         transform: rotate(360deg);

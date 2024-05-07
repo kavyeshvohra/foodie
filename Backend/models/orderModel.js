@@ -6,7 +6,7 @@ const orderSchema = mongoose.Schema({
     totalAmount:{type:Number, required:true},
     status:{type:String,default:"Order Processing",required:true},
     paymentMethod:{type:String, default:"Online", required:true},
-    paymentStatus:{type:String, default:false,required:true},
+    paymentStatus:{type:Boolean, default:false,required:true},
     orderDate:{type:Date, default:Date.now(),required:true},
     deliveryDate:{type:Date,default:''},
     deliveryAddress:{type:Object, required:true}

@@ -43,6 +43,7 @@ import food_29 from '../public/food_29.png'
 import food_30 from '../public/food_30.png'
 import food_31 from '../public/food_31.png'
 import food_32 from '../public/food_32.png'
+import orderFood from '../public/order-food.jpg'
 
 import add_icon_white from '../public/add_icon_white.png'
 import add_icon_green from '../public/add_icon_green.png'
@@ -76,7 +77,8 @@ export const assets = {
     profile_icon,
     logout_icon,
     bag_icon,
-    parcel_icon
+    parcel_icon,
+    orderFood
 }
 
 export const menu_list = [

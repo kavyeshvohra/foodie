@@ -13,7 +13,7 @@ const placeOrder = async (req, res) => {
         totalAmount: req.body.totalAmount,
         paymentMethod: req.body.paymentMethod,
         deliveryDate: req.body.deliveryDate,
-        deliveryAddress: req.body.address.address
+        deliveryAddress: req.body.address
     });
     await newOrder.save();
     await userModel.findByIdAndUpdate(req.body.user, { cartData:{} });
@@ -75,7 +75,36 @@ const verifyOrder = async (req, res) => {
         res.json({success:false,message:"Error! Connection Error!"})
     }
 }
+//Update Order Status
+const updateStatus = async(req,res)=>{
+    try{
+        if(await orderModel.findById(req.body.orderId))
+        {
+            await orderModel.findByIdAndUpdate(req.body.orderId,{status:req.body.status})
+            res.json({success:true,message:"Order Status Updated!"});
+        }
+        else{
+            res.json({success:false,message:"Order Not Found!"});
+        }
+    }
+    catch(error)
+    {
+        console.log(error);
+        res.json({success:false,message:"Internal Error!"});
+    }
+}
 
+//List All Orders
+const listOrders = async (req,res) =>{
+    try{
+        const orders = await orderModel.find({});
+        res.json({success:true, data:orders});
+    }
+    catch(error){
+        console.log(error);
+        res.json({success:false,message:"Error! Failed to get the orders!"});
+    }
+}
 //user orders
 const userOrders = async (req, res) => {
     try {
@@ -87,4 +116,4 @@ const userOrders = async (req, res) => {
     }
 }
 
-export { placeOrder, verifyOrder, userOrders };
+export { placeOrder, verifyOrder, userOrders, listOrders,updateStatus };
